@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading;
 using Telegram.Bot.Types;
 
-namespace MihaZupan.TelegramBotClients
+namespace MihaZupan.TelegramBotClients.SimpleBlocking
 {
     class TelegramRequestScheduler
     {
@@ -150,7 +150,7 @@ namespace MihaZupan.TelegramBotClients
             else
             {
                 var requestItem = new ScheduledRequestItem(TimerIntervals);
-                GeneralQueue.AddFirst(requestItem);
+                GeneralQueue.AddLast(requestItem);
                 mre = requestItem.MRE;
             }
             return mre;

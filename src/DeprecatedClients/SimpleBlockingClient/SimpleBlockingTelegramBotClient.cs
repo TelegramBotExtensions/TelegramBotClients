@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Requests.Abstractions;
 using Telegram.Bot.Types;
+using MihaZupan.TelegramBotClients.SimpleBlocking;
 
 namespace MihaZupan.TelegramBotClients
 {

@@ -1,4 +1,4 @@
-﻿namespace MihaZupan.TelegramBotClients
+﻿namespace MihaZupan.TelegramBotClients.SimpleBlocking
 {
     class ChatRequestCount
     {
