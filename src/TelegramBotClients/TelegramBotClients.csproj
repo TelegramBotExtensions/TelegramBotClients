@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+	<AssemblyName>MihaZupan.TelegramBotClients</AssemblyName>
+	<LangVersion>latest</LangVersion>
+    <RootNamespace>MihaZupan.TelegramBotClients</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>MihaZupan</Authors>
+    <Company>MihaZupan</Company>
+    <Description></Description>
+    <Copyright>Copyright © Miha Zupan 2018</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageTags></PackageTags>
+    <Product>RateLimitedTelegramBotClients</Product>
+    <PackageId>RateLimitedTelegramBotClients</PackageId>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.2|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
+    <Reference Include="System.Net.Http" />	
+    <Reference Include="Telegram.Bot">
+      <HintPath>..\..\..\Telegram.Bot\src\Telegram.Bot\bin\Release\net45\Telegram.Bot.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'!='net45'">	
+    <Reference Include="Telegram.Bot">
+      <HintPath>..\..\..\Telegram.Bot\src\Telegram.Bot\bin\Release\netstandard1.1\Telegram.Bot.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
