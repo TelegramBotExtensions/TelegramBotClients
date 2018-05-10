@@ -40,7 +40,7 @@ namespace MakeRequestAsyncModifier
             }
             foreach (Match match in Regex.Matches(code, @"default\W*?\)[\w\W]{0,50}?MakeRequestAsync[\w\W]*?\([\w\W]*?\);"))
             {
-                code = code.Insert(code.OrdinalIndexOf(match.Value, match.Index) + 7, ",\r\n\t\t\tSchedulingMethod schedulingMethod = SchedulingMethod.Normal");
+                code = code.Insert(code.OrdinalIndexOf(match.Value, match.Index) + 7, ",\r\n"+ new string(' ', 12) + "SchedulingMethod schedulingMethod = SchedulingMethod.Normal");
                 code = code.Insert(code.OrdinalIndexAfter(match.Value.Last(20), match.Index) - 2, ", schedulingMethod");
             }
             

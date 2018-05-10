@@ -254,7 +254,7 @@ namespace MihaZupan.TelegramBotClients
             int timeout = default,
             IEnumerable<UpdateType> allowedUpdates = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new GetUpdatesRequest
             {
@@ -271,7 +271,7 @@ namespace MihaZupan.TelegramBotClients
             int maxConnections = default,
             IEnumerable<UpdateType> allowedUpdates = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SetWebhookRequest(url, certificate)
             {
@@ -281,12 +281,12 @@ namespace MihaZupan.TelegramBotClients
 
         /// <inheritdoc />
         public Task DeleteWebhookAsync(CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal)
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal)
             => MakeRequestAsync(new DeleteWebhookRequest(), cancellationToken, schedulingMethod);
 
         /// <inheritdoc />
         public Task<WebhookInfo> GetWebhookInfoAsync(CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal)
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal)
             => MakeRequestAsync(new GetWebhookInfoRequest(), cancellationToken, schedulingMethod);
 
         #endregion Getting updates
@@ -295,7 +295,7 @@ namespace MihaZupan.TelegramBotClients
 
         /// <inheritdoc />
         public Task<User> GetMeAsync(CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal)
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal)
             => MakeRequestAsync(new GetMeRequest(), cancellationToken, schedulingMethod);
 
         /// <inheritdoc />
@@ -308,7 +308,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendMessageRequest(chatId, text)
             {
@@ -326,7 +326,7 @@ namespace MihaZupan.TelegramBotClients
             int messageId,
             bool disableNotification = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new ForwardMessageRequest(chatId, fromChatId, messageId)
             {
@@ -343,7 +343,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendPhotoRequest(chatId, photo)
             {
@@ -367,7 +367,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendAudioRequest(chatId, audio)
             {
@@ -391,7 +391,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendDocumentRequest(chatId, document)
             {
@@ -410,7 +410,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendStickerRequest(chatId, sticker)
             {
@@ -433,7 +433,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendVideoRequest(chatId, video)
             {
@@ -459,7 +459,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendVoiceRequest(chatId, voice)
             {
@@ -481,7 +481,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendVideoNoteRequest(chatId, videoNote)
             {
@@ -499,7 +499,7 @@ namespace MihaZupan.TelegramBotClients
             bool disableNotification = default,
             int replyToMessageId = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendMediaGroupRequest(chatId, media)
             {
@@ -517,7 +517,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendLocationRequest(chatId, latitude, longitude)
             {
@@ -539,7 +539,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendVenueRequest(chatId, latitude, longitude, title, address)
             {
@@ -559,7 +559,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendContactRequest(chatId, phoneNumber, firstName)
             {
@@ -574,7 +574,7 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             ChatAction chatAction,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendChatActionRequest(chatId, chatAction), cancellationToken, chatId, schedulingMethod);
 
@@ -584,7 +584,7 @@ namespace MihaZupan.TelegramBotClients
             int offset = default,
             int limit = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new GetUserProfilePhotosRequest(userId)
             {
@@ -596,7 +596,7 @@ namespace MihaZupan.TelegramBotClients
         public Task<File> GetFileAsync(
             string fileId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new GetFileRequest(fileId), cancellationToken, schedulingMethod);
 
@@ -646,7 +646,7 @@ namespace MihaZupan.TelegramBotClients
             int userId,
             DateTime untilDate = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new KickChatMemberRequest(chatId, userId)
             {
@@ -657,7 +657,7 @@ namespace MihaZupan.TelegramBotClients
         public Task LeaveChatAsync(
             ChatId chatId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new LeaveChatRequest(chatId), cancellationToken, chatId, schedulingMethod);
 
@@ -666,7 +666,7 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             int userId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new UnbanChatMemberRequest(chatId, userId), cancellationToken, chatId, schedulingMethod);
 
@@ -674,7 +674,7 @@ namespace MihaZupan.TelegramBotClients
         public Task<Chat> GetChatAsync(
             ChatId chatId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new GetChatRequest(chatId), cancellationToken, chatId, schedulingMethod);
 
@@ -682,7 +682,7 @@ namespace MihaZupan.TelegramBotClients
         public Task<ChatMember[]> GetChatAdministratorsAsync(
             ChatId chatId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new GetChatAdministratorsRequest(chatId), cancellationToken, chatId, schedulingMethod);
 
@@ -690,7 +690,7 @@ namespace MihaZupan.TelegramBotClients
         public Task<int> GetChatMembersCountAsync(
             ChatId chatId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new GetChatMembersCountRequest(chatId), cancellationToken, chatId, schedulingMethod);
 
@@ -699,7 +699,7 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             int userId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new GetChatMemberRequest(chatId, userId), cancellationToken, chatId, schedulingMethod);
 
@@ -711,7 +711,7 @@ namespace MihaZupan.TelegramBotClients
             string url = default,
             int cacheTime = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new AnswerCallbackQueryRequest(callbackQueryId)
             {
@@ -731,7 +731,7 @@ namespace MihaZupan.TelegramBotClients
             bool? canSendOtherMessages = default,
             bool? canAddWebPagePreviews = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new RestrictChatMemberRequest(chatId, userId)
             {
@@ -755,7 +755,7 @@ namespace MihaZupan.TelegramBotClients
             bool? canPinMessages = default,
             bool? canPromoteMembers = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new PromoteChatMemberRequest(chatId, userId)
             {
@@ -775,7 +775,7 @@ namespace MihaZupan.TelegramBotClients
             int messageId,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new StopMessageLiveLocationRequest(chatId, messageId)
             {
@@ -787,7 +787,7 @@ namespace MihaZupan.TelegramBotClients
             string inlineMessageId,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new StopInlineMessageLiveLocationRequest(inlineMessageId)
             {
@@ -807,7 +807,7 @@ namespace MihaZupan.TelegramBotClients
             bool disableWebPagePreview = default,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new EditMessageTextRequest(chatId, messageId, text)
             {
@@ -824,7 +824,7 @@ namespace MihaZupan.TelegramBotClients
             bool disableWebPagePreview = default,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new EditInlineMessageTextRequest(inlineMessageId, text)
             {
@@ -839,7 +839,7 @@ namespace MihaZupan.TelegramBotClients
             string caption,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new EditMessageCaptionRequest(chatId, messageId)
             {
@@ -853,7 +853,7 @@ namespace MihaZupan.TelegramBotClients
             string caption,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new EditInlineMessageCaptionRequest(inlineMessageId)
             {
@@ -867,7 +867,7 @@ namespace MihaZupan.TelegramBotClients
             int messageId,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(
                 new EditMessageReplyMarkupRequest(chatId, messageId, replyMarkup),
@@ -878,7 +878,7 @@ namespace MihaZupan.TelegramBotClients
             string inlineMessageId,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(
                 new EditInlineMessageReplyMarkupRequest(inlineMessageId, replyMarkup),
@@ -892,7 +892,7 @@ namespace MihaZupan.TelegramBotClients
             float longitude,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new EditMessageLiveLocationRequest(chatId, messageId, latitude, longitude)
             {
@@ -906,7 +906,7 @@ namespace MihaZupan.TelegramBotClients
             float longitude,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new EditInlineMessageLiveLocationRequest(inlineMessageId, latitude, longitude)
             {
@@ -918,7 +918,7 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             int messageId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new DeleteMessageRequest(chatId, messageId), cancellationToken, chatId, schedulingMethod);
 
@@ -936,7 +936,7 @@ namespace MihaZupan.TelegramBotClients
             string switchPmText = default,
             string switchPmParameter = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new AnswerInlineQueryRequest(inlineQueryId, results)
             {
@@ -975,7 +975,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendInvoiceRequest(
                 chatId,
@@ -1009,7 +1009,7 @@ namespace MihaZupan.TelegramBotClients
             string shippingQueryId,
             IEnumerable<ShippingOption> shippingOptions,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new AnswerShippingQueryRequest(shippingQueryId, shippingOptions), cancellationToken, schedulingMethod);
 
@@ -1018,7 +1018,7 @@ namespace MihaZupan.TelegramBotClients
             string shippingQueryId,
             string errorMessage,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new AnswerShippingQueryRequest(shippingQueryId, errorMessage), cancellationToken, schedulingMethod);
 
@@ -1026,7 +1026,7 @@ namespace MihaZupan.TelegramBotClients
         public Task AnswerPreCheckoutQueryAsync(
             string preCheckoutQueryId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new AnswerPreCheckoutQueryRequest(preCheckoutQueryId), cancellationToken, schedulingMethod);
 
@@ -1035,7 +1035,7 @@ namespace MihaZupan.TelegramBotClients
             string preCheckoutQueryId,
             string errorMessage,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new AnswerPreCheckoutQueryRequest(preCheckoutQueryId, errorMessage), cancellationToken, schedulingMethod);
 
@@ -1051,7 +1051,7 @@ namespace MihaZupan.TelegramBotClients
             int replyToMessageId = default,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SendGameRequest(chatId, gameShortName)
             {
@@ -1069,7 +1069,7 @@ namespace MihaZupan.TelegramBotClients
             bool force = default,
             bool disableEditMessage = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SetGameScoreRequest(userId, score, chatId, messageId)
             {
@@ -1085,7 +1085,7 @@ namespace MihaZupan.TelegramBotClients
             bool force = default,
             bool disableEditMessage = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SetInlineGameScoreRequest(userId, score, inlineMessageId)
             {
@@ -1099,7 +1099,7 @@ namespace MihaZupan.TelegramBotClients
             long chatId,
             int messageId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(
                 new GetGameHighScoresRequest(userId, chatId, messageId),
@@ -1110,7 +1110,7 @@ namespace MihaZupan.TelegramBotClients
             int userId,
             string inlineMessageId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(
                 new GetInlineGameHighScoresRequest(userId, inlineMessageId),
@@ -1124,7 +1124,7 @@ namespace MihaZupan.TelegramBotClients
         public Task<string> ExportChatInviteLinkAsync(
             ChatId chatId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new ExportChatInviteLinkRequest(chatId), cancellationToken, chatId, schedulingMethod);
 
@@ -1133,7 +1133,7 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             InputFileStream photo,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SetChatPhotoRequest(chatId, photo), cancellationToken, chatId, schedulingMethod);
 
@@ -1141,7 +1141,7 @@ namespace MihaZupan.TelegramBotClients
         public Task DeleteChatPhotoAsync(
             ChatId chatId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new DeleteChatPhotoRequest(chatId), cancellationToken, chatId, schedulingMethod);
 
@@ -1150,7 +1150,7 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             string title,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SetChatTitleRequest(chatId, title), cancellationToken, chatId, schedulingMethod);
 
@@ -1159,7 +1159,7 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             string description = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SetChatDescriptionRequest(chatId, description), cancellationToken, chatId, schedulingMethod);
 
@@ -1169,7 +1169,7 @@ namespace MihaZupan.TelegramBotClients
             int messageId,
             bool disableNotification = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new PinChatMessageRequest(chatId, messageId)
             {
@@ -1180,7 +1180,7 @@ namespace MihaZupan.TelegramBotClients
         public Task UnpinChatMessageAsync(
             ChatId chatId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new UnpinChatMessageRequest(chatId), cancellationToken, chatId, schedulingMethod);
 
@@ -1189,7 +1189,7 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             string stickerSetName,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SetChatStickerSetRequest(chatId, stickerSetName), cancellationToken, chatId, schedulingMethod);
 
@@ -1197,7 +1197,7 @@ namespace MihaZupan.TelegramBotClients
         public Task DeleteChatStickerSetAsync(
             ChatId chatId,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new DeleteChatStickerSetRequest(chatId), cancellationToken, chatId, schedulingMethod);
 
@@ -1209,7 +1209,7 @@ namespace MihaZupan.TelegramBotClients
         public Task<StickerSet> GetStickerSetAsync(
             string name,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new GetStickerSetRequest(name), cancellationToken, schedulingMethod);
 
@@ -1218,7 +1218,7 @@ namespace MihaZupan.TelegramBotClients
             int userId,
             InputFileStream pngSticker,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new UploadStickerFileRequest(userId, pngSticker), cancellationToken, userId, schedulingMethod);
 
@@ -1232,7 +1232,7 @@ namespace MihaZupan.TelegramBotClients
             bool isMasks = default,
             MaskPosition maskPosition = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new CreateNewStickerSetRequest(userId, name, title, pngSticker, emojis)
             {
@@ -1248,7 +1248,7 @@ namespace MihaZupan.TelegramBotClients
             string emojis,
             MaskPosition maskPosition = default,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new AddStickerToSetRequest(userId, name, pngSticker, emojis)
             {
@@ -1260,7 +1260,7 @@ namespace MihaZupan.TelegramBotClients
             string sticker,
             int position,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new SetStickerPositionInSetRequest(sticker, position), cancellationToken, schedulingMethod);
 
@@ -1268,7 +1268,7 @@ namespace MihaZupan.TelegramBotClients
         public Task DeleteStickerFromSetAsync(
             string sticker,
             CancellationToken cancellationToken = default,
-			SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
             MakeRequestAsync(new DeleteStickerFromSetRequest(sticker), cancellationToken, schedulingMethod);
 
