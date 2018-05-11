@@ -4,12 +4,18 @@
 
 ## Added
 
+- warning disable for CA1068
+- readonly modifiers on a lot of things thanks to @karb0f0s
 - await to method calls in ReadMe usage example
 
 ## Changed
 
 - Removed async/await from 'MakeRequestAsync' overloads
 - The Obsolete behaviour on the default 'MakeRequestAsync' from error to warning
+
+## Fixed
+
+- Typo in SchedulerSettings causing SafePrivateChatInterval to be set to SafeGeneralInterval
 
 ## [1.0.3] - 2018-05-11
 
