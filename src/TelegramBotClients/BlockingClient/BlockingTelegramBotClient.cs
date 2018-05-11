@@ -829,7 +829,8 @@ namespace MihaZupan.TelegramBotClients
             MakeRequestAsync(new EditInlineMessageTextRequest(inlineMessageId, text)
             {
                 DisableWebPagePreview = disableWebPagePreview,
-                ReplyMarkup = replyMarkup
+                ReplyMarkup = replyMarkup,
+                ParseMode = parseMode
             }, cancellationToken, schedulingMethod);
 
         /// <inheritdoc />
