@@ -15,6 +15,7 @@
 
 ## Fixed
 
+- 'UpdateQueue' in 'TelegramRequestScheduler' now removes itmes from the old queue when switching to general queue
 - Typo in SchedulerSettings causing SafePrivateChatInterval to be set to SafeGeneralInterval
 
 ## [1.0.3] - 2018-05-11
