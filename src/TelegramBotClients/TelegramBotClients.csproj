@@ -5,18 +5,18 @@
 	<AssemblyName>MihaZupan.TelegramBotClients</AssemblyName>
 	<LangVersion>latest</LangVersion>
     <RootNamespace>MihaZupan.TelegramBotClients</RootNamespace>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>MihaZupan</Authors>
     <Company>MihaZupan</Company>
-    <Description></Description>
+    <Description>Collection of TelegramWebClients that implement various features such as rate-limiting.</Description>
     <Copyright>Copyright © Miha Zupan 2018</Copyright>
-    <PackageProjectUrl></PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageIconUrl></PackageIconUrl>
-    <RepositoryUrl></RepositoryUrl>
-    <PackageTags></PackageTags>
-    <Product>RateLimitedTelegramBotClients</Product>
-    <PackageId>RateLimitedTelegramBotClients</PackageId>
+    <PackageProjectUrl>https://github.com/MihaZupan/TelegramBotClients</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/MihaZupan/TelegramBotClients/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://telegram.org/img/tl_card_process.gif</PackageIconUrl>
+    <RepositoryUrl>https://github.com/MihaZupan/TelegramBotClients.git</RepositoryUrl>
+    <PackageTags>Telegram;Bot;Rate;Scheduling;Queue</PackageTags>
+    <Product>TelegramBotClients</Product>
+    <PackageId>TelegramBotClients</PackageId>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
