@@ -205,6 +205,7 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             SchedulingMethod schedulingMethod)
         {
+            if (request.MethodName == "getUpdates") schedulingMethod = SchedulingMethod.NoScheduling;
             if (schedulingMethod != SchedulingMethod.Ignore)
             {
                 if (chatId == null) Scheduler.WaitOne(schedulingMethod);

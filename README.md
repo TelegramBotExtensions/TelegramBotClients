@@ -5,13 +5,20 @@ Based on the [C# Telegram.Bot library](https://github.com/TelegramBots/Telegram.
 
 ## Usage
 
-Replace
 ```c#
+// Add usings
+using MihaZupan.TelegramBotClients; // For the Client
+using MihaZupan.TelegramBotClients.BlockingClient; // For the SchedulingMethod enum
+
+// Replace
 TelegramBotClient Bot = new TelegramBotClient(token);
-```
-With
-```c#
+// With
 BlockingTelegramBotClient Bot = new BlockingTelegramBotClient(token);
+
+// All requests to the bot API are now rate-limited
+// You can also use an extra parameter on all requests:
+Bot.SendTextMessageAsync(chatId, "Hello");
+Bot.SendTextMessageAsync(chatId, "Urgent!", schedulingMethod: SchedulingMethod.HighPriority);
 ```
 
 ## Installation
