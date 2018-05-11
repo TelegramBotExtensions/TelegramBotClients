@@ -1,10 +1,10 @@
 ﻿namespace MihaZupan.TelegramBotClients.BlockingClient
 {
-    class ChatRequestCount
+    internal class ChatRequestCount
     {
         private long LatestInterval;
         private int Value;
-        
+
         public ChatRequestCount(int value, long currentInterval)
         {
             LatestInterval = currentInterval;

@@ -22,8 +22,8 @@ namespace MihaZupan.TelegramBotClients
 {
     public class BlockingTelegramBotClient
     {
-        private TelegramBotClient Client;
-        private TelegramRequestScheduler Scheduler;
+        private readonly TelegramBotClient Client;
+        private readonly TelegramRequestScheduler Scheduler;
 
         #region Config Properties
 
@@ -157,6 +157,7 @@ namespace MihaZupan.TelegramBotClients
         /// </summary>
         /// <param name="token">API token</param>
         /// <param name="httpClient">A custom <see cref="HttpClient"/></param>
+        /// <param name="schedulerSettings">Scheduler settings</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="token"/> format is invalid</exception>
         public BlockingTelegramBotClient(string token, HttpClient httpClient = null, SchedulerSettings schedulerSettings = default)
         {
@@ -170,6 +171,7 @@ namespace MihaZupan.TelegramBotClients
         /// </summary>
         /// <param name="token">API token</param>
         /// <param name="webProxy">Use this <see cref="IWebProxy"/> to connect to the API</param>
+        /// <param name="schedulerSettings">Scheduler settings</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="token"/> format is invalid</exception>
         public BlockingTelegramBotClient(string token, IWebProxy webProxy, SchedulerSettings schedulerSettings = default)
         {
@@ -208,7 +210,7 @@ namespace MihaZupan.TelegramBotClients
         }
 
         /// <inheritdoc />
-        public async Task<TResponse> MakeRequestAsync<TResponse>(
+        public Task<TResponse> MakeRequestAsync<TResponse>(
             IRequest<TResponse> request,
             CancellationToken cancellationToken,
             ChatId chatId,
@@ -220,16 +222,17 @@ namespace MihaZupan.TelegramBotClients
                 else Scheduler.WaitOne(chatId, schedulingMethod);
             }
 
-            return await Client.MakeRequestAsync(request, cancellationToken);
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
         /// Test the API token
         /// </summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns><c>true</c> if token is valid</returns>
-        public async Task<bool> TestApiAsync(CancellationToken cancellationToken = default)
+        public Task<bool> TestApiAsync(CancellationToken cancellationToken = default)
         {
-            return await Client.TestApiAsync(cancellationToken);
+            return Client.TestApiAsync(cancellationToken);
         }
 
         /// <summary>
@@ -630,7 +633,8 @@ namespace MihaZupan.TelegramBotClients
         )
         {
             Scheduler.WaitOne(schedulingMethod);
-            await Client.DownloadFileAsync(filePath, destination, cancellationToken);
+            await Client.DownloadFileAsync(filePath, destination, cancellationToken)
+                .ConfigureAwait(false);
         }
 
         /// <inheritdoc />
