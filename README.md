@@ -17,8 +17,8 @@ BlockingTelegramBotClient Bot = new BlockingTelegramBotClient(token);
 
 // All requests to the bot API are now rate-limited
 // You can also use an extra parameter on all requests:
-Bot.SendTextMessageAsync(chatId, "Hello");
-Bot.SendTextMessageAsync(chatId, "Urgent!", schedulingMethod: SchedulingMethod.HighPriority);
+await Bot.SendTextMessageAsync(chatId, "Hello");
+await Bot.SendTextMessageAsync(chatId, "Urgent!", schedulingMethod: SchedulingMethod.HighPriority);
 ```
 
 ## Installation

@@ -190,21 +190,21 @@ namespace MihaZupan.TelegramBotClients
         #region Helpers
 
         /// <inheritdoc />
-        [Obsolete("Use the overload with extra parameters added by BlockingTelegramBotClient instead.", true)]
-        public async Task<TResponse> MakeRequestAsync<TResponse>(
+        [Obsolete("Use the overload with extra parameters added by BlockingTelegramBotClient instead.")]
+        public Task<TResponse> MakeRequestAsync<TResponse>(
             IRequest<TResponse> request,
             CancellationToken cancellationToken)
         {
-            return await MakeRequestAsync(request, cancellationToken, null, SchedulingMethod.Normal);
+            return MakeRequestAsync(request, cancellationToken, null, SchedulingMethod.Normal);
         }
 
         /// <inheritdoc />
-        public async Task<TResponse> MakeRequestAsync<TResponse>(
+        public Task<TResponse> MakeRequestAsync<TResponse>(
             IRequest<TResponse> request,
             CancellationToken cancellationToken,
             SchedulingMethod schedulingMethod)
         {
-            return await MakeRequestAsync(request, cancellationToken, null, schedulingMethod);
+            return MakeRequestAsync(request, cancellationToken, null, schedulingMethod);
         }
 
         /// <inheritdoc />

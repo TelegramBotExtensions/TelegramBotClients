@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+## Added
+
+- await to method calls in ReadMe usage example
+
+## Changed
+
+- Removed async/await from 'MakeRequestAsync' overloads
+- The Obsolete behaviour on the default 'MakeRequestAsync' from error to warning
 
 ## [1.0.3] - 2018-05-11
 
