@@ -6,7 +6,7 @@ using Telegram.Bot.Types;
 
 namespace MihaZupan.TelegramBotClients.BlockingClient
 {
-    class TelegramRequestScheduler
+    public class TelegramRequestScheduler
     {
         public readonly int SafeGeneralInterval;
         public readonly int GeneralMaxBurst;
@@ -24,16 +24,16 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
         // Amount of all sent requests that have not yet been written off
         private int GeneralRequestCount = 0;
 
-        private object QueueLock = new object();
+        private readonly object QueueLock = new object();
 
-        private Timer Timer;
-        private Stopwatch Stopwatch;
+        private readonly Timer Timer;
+        private readonly Stopwatch Stopwatch;
 
-        private LinkedList<ScheduledRequestItem> PrivateChatQueue = new LinkedList<ScheduledRequestItem>();
-        private LinkedList<ScheduledRequestItem> GroupChatQueue = new LinkedList<ScheduledRequestItem>();
-        private LinkedList<ScheduledRequestItem> GeneralQueue = new LinkedList<ScheduledRequestItem>();
+        private readonly LinkedList<ScheduledRequestItem> PrivateChatQueue = new LinkedList<ScheduledRequestItem>();
+        private readonly LinkedList<ScheduledRequestItem> GroupChatQueue = new LinkedList<ScheduledRequestItem>();
+        private readonly LinkedList<ScheduledRequestItem> GeneralQueue = new LinkedList<ScheduledRequestItem>();
 
-        private Dictionary<long, ChatRequestCount> RequestCounts = new Dictionary<long, ChatRequestCount>(50);
+        private readonly Dictionary<long, ChatRequestCount> RequestCounts = new Dictionary<long, ChatRequestCount>(50);
 
         private void TimerCallback(object state)
         {
@@ -62,12 +62,16 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
                     GeneralQueue.First.Value.MRE.Set();
                     GeneralQueue.RemoveFirst();
                 }
-                else if (GeneralRequestCount > 0) GeneralRequestCount--;
+                else if (GeneralRequestCount > 0)
+                {
+                    GeneralRequestCount--;
+                }
             }
 
-            int wait = Math.Max(SafeGeneralInterval / 2, (int)((TimerIntervals + 1) * SafeGeneralInterval - msElapsed));
+            int wait = Math.Max(SafeGeneralInterval / 2, (int)(((TimerIntervals + 1) * SafeGeneralInterval) - msElapsed));
             Timer.Change(wait, Timeout.Infinite);
         }
+
         private void ProcessQueue(LinkedList<ScheduledRequestItem> queue, long intervals, int maxBurst)
         {
             LinkedListNode<ScheduledRequestItem> lastAddedNode = null;
@@ -92,6 +96,7 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
             }
             while (node != null);
         }
+
         private LinkedListNode<ScheduledRequestItem> InsertToGeneralQueue(ScheduledRequestItem requestItem, LinkedListNode<ScheduledRequestItem> searchFrom)
         {
             var node = searchFrom;
@@ -100,10 +105,11 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
             if (node == null) return GeneralQueue.AddLast(requestItem);
             else return GeneralQueue.AddBefore(node, requestItem);
         }
+
         private LinkedListNode<ScheduledRequestItem> InsertToGeneralQueueHp(ScheduledRequestItem requestItem, LinkedListNode<ScheduledRequestItem> searchFrom)
         {
             var node = searchFrom;
-            while (node != null && node.Value.IsHighPriority) node = node.Next;
+            while (node?.Value.IsHighPriority == true) node = node.Next;
 
             if (node == null) return GeneralQueue.AddLast(requestItem);
             else return GeneralQueue.AddBefore(node, requestItem);
@@ -132,6 +138,7 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
             }
             mre?.WaitOne();
         }
+
         public void WaitOne(ChatId chatId, SchedulingMethod schedulingMethod)
         {
             if (chatId.Identifier != default) // Chat referenced by ID
@@ -149,7 +156,7 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
                     mre = WaitOneInternalUnlocked(schedulingMethod);
                 }
                 mre?.WaitOne();
-            }            
+            }
         }
         #endregion
 
@@ -264,6 +271,6 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
 
             mre?.WaitOne();
             return;
-        }        
+        }
     }
 }
