@@ -162,6 +162,7 @@ namespace MihaZupan.TelegramBotClients
         {
             Client = new TelegramBotClient(token, httpClient);
             Scheduler = new TelegramRequestScheduler(schedulerSettings ?? SchedulerSettings.Default);
+            Client.MakingApiRequest += Client_MakingApiRequest;
         }
 
         /// <summary>
@@ -174,11 +175,19 @@ namespace MihaZupan.TelegramBotClients
         {
             Client = new TelegramBotClient(token, webProxy);
             Scheduler = new TelegramRequestScheduler(schedulerSettings ?? SchedulerSettings.Default);
+            Client.MakingApiRequest += Client_MakingApiRequest;
         }
 
         #endregion Constructors
 
-        #region Helpers
+        private void Client_MakingApiRequest(object sender, ApiRequestEventArgs e)
+        {
+            // Make sure getting updates doesn't end up pushing us over the limit
+            if (e.MethodName == "getUpdates")
+                Scheduler.WaitOne(SchedulingMethod.NoScheduling);
+        }
+
+#region Helpers
 
         /// <inheritdoc />
         [Obsolete("Use the overload with extra parameters added by BlockingTelegramBotClient instead.", true)]
@@ -205,7 +214,6 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             SchedulingMethod schedulingMethod)
         {
-            if (request.MethodName == "getUpdates") schedulingMethod = SchedulingMethod.NoScheduling;
             if (schedulingMethod != SchedulingMethod.Ignore)
             {
                 if (chatId == null) Scheduler.WaitOne(schedulingMethod);
@@ -244,9 +252,9 @@ namespace MihaZupan.TelegramBotClients
             Client.StopReceiving();
         }
 
-        #endregion Helpers
+#endregion Helpers
 
-        #region Getting updates
+#region Getting updates
 
         /// <inheritdoc />
         public Task<Update[]> GetUpdatesAsync(
@@ -290,9 +298,9 @@ namespace MihaZupan.TelegramBotClients
             SchedulingMethod schedulingMethod = SchedulingMethod.Normal)
             => MakeRequestAsync(new GetWebhookInfoRequest(), cancellationToken, schedulingMethod);
 
-        #endregion Getting updates
+#endregion Getting updates
 
-        #region Available methods
+#region Available methods
 
         /// <inheritdoc />
         public Task<User> GetMeAsync(CancellationToken cancellationToken = default,
@@ -795,9 +803,9 @@ namespace MihaZupan.TelegramBotClients
                 ReplyMarkup = replyMarkup
             }, cancellationToken, schedulingMethod);
 
-        #endregion Available methods
+#endregion Available methods
 
-        #region Updating messages
+#region Updating messages
 
         /// <inheritdoc />
         public Task<Message> EditMessageTextAsync(
@@ -924,9 +932,9 @@ namespace MihaZupan.TelegramBotClients
         ) =>
             MakeRequestAsync(new DeleteMessageRequest(chatId, messageId), cancellationToken, chatId, schedulingMethod);
 
-        #endregion Updating messages
+#endregion Updating messages
 
-        #region Inline mode
+#region Inline mode
 
         /// <inheritdoc />
         public Task AnswerInlineQueryAsync(
@@ -949,9 +957,9 @@ namespace MihaZupan.TelegramBotClients
                 SwitchPmParameter = switchPmParameter
             }, cancellationToken, schedulingMethod);
 
-        # endregion Inline mode
+#endregion Inline mode
 
-        #region Payments
+#region Payments
 
         /// <inheritdoc />
         public Task<Message> SendInvoiceAsync(
@@ -1041,9 +1049,9 @@ namespace MihaZupan.TelegramBotClients
         ) =>
             MakeRequestAsync(new AnswerPreCheckoutQueryRequest(preCheckoutQueryId, errorMessage), cancellationToken, schedulingMethod);
 
-        #endregion Payments
+#endregion Payments
 
-        #region Games
+#region Games
 
         /// <inheritdoc />
         public Task<Message> SendGameAsync(
@@ -1118,9 +1126,9 @@ namespace MihaZupan.TelegramBotClients
                 new GetInlineGameHighScoresRequest(userId, inlineMessageId),
                 cancellationToken, userId, schedulingMethod);
 
-        #endregion Games
+#endregion Games
 
-        #region Group and channel management
+#region Group and channel management
 
         /// <inheritdoc />
         public Task<string> ExportChatInviteLinkAsync(
@@ -1203,9 +1211,9 @@ namespace MihaZupan.TelegramBotClients
         ) =>
             MakeRequestAsync(new DeleteChatStickerSetRequest(chatId), cancellationToken, chatId, schedulingMethod);
 
-        #endregion
+#endregion
 
-        #region Stickers
+#region Stickers
 
         /// <inheritdoc />
         public Task<StickerSet> GetStickerSetAsync(
@@ -1274,6 +1282,6 @@ namespace MihaZupan.TelegramBotClients
         ) =>
             MakeRequestAsync(new DeleteStickerFromSetRequest(sticker), cancellationToken, schedulingMethod);
 
-        #endregion
+#endregion
     }
 }

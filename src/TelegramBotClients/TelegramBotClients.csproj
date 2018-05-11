@@ -17,9 +17,9 @@
     <PackageTags>Telegram;Bot;Rate;Scheduling;Queue</PackageTags>
     <Product>TelegramBotClients</Product>
     <PackageId>TelegramBotClients</PackageId>
-    <Version>1.0.2</Version>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 

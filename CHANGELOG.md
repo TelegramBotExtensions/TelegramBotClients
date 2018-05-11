@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [1.0.3] - 2018-05-11
+
+### Fixed
+
+- Catching 'getUpdates' in the 'MakingApiRequest' event since the base class will not call our version of 'MakeRequestAsync'
+
 ## [1.0.2] - 2018-05-11
 
 ### Added
