@@ -91,8 +91,14 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
                     {
                         lastAddedNode = InsertToGeneralQueue(node.Value, lastAddedNode);
                     }
+                    var nextNode = node.Next;
+                    queue.Remove(node);
+                    node = nextNode;
                 }
-                node = node.Next;
+                else
+                {
+                    node = node.Next;
+                }
             }
             while (node != null);
         }
@@ -225,7 +231,7 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
                         }
                         else
                         {
-                            var requestItem = new ScheduledRequestItem(TimerIntervals, isHighPriority);
+                            var requestItem = new ScheduledRequestItem(TimerIntervals, isHighPriority, chatId);
                             if (isHighPriority)
                                 PrivateChatQueue.AddFirst(requestItem);
                             else
@@ -253,7 +259,7 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
                         }
                         else
                         {
-                            var requestItem = new ScheduledRequestItem(TimerIntervals, isHighPriority);
+                            var requestItem = new ScheduledRequestItem(TimerIntervals, isHighPriority, chatId);
                             if (isHighPriority)
                                 GroupChatQueue.AddFirst(requestItem);
                             else
