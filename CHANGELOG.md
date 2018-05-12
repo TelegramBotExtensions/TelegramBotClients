@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Moved repository to TelegramBotExtensions organization
 - Moved suppression of CA1068 to the GlobalSuppressions.cs file
 
 

@@ -10,10 +10,10 @@
     <Company>MihaZupan</Company>
     <Description>Collection of TelegramWebClients that implement various features such as rate-limiting.</Description>
     <Copyright>Copyright © Miha Zupan 2018</Copyright>
-    <PackageProjectUrl>https://github.com/MihaZupan/TelegramBotClients</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/MihaZupan/TelegramBotClients/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/TelegramBotExtensions/TelegramBotClients</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/TelegramBotExtensions/TelegramBotClients/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>https://telegram.org/img/tl_card_process.gif</PackageIconUrl>
-    <RepositoryUrl>https://github.com/MihaZupan/TelegramBotClients.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/TelegramBotExtensions/TelegramBotClientss.git</RepositoryUrl>
     <PackageTags>Telegram;Bot;Rate;Scheduling;Queue</PackageTags>
     <Product>TelegramBotClients</Product>
     <PackageId>TelegramBotClients</PackageId>
