@@ -188,8 +188,7 @@ namespace MihaZupan.TelegramBotClients
             if (e.MethodName == "getUpdates")
                 Scheduler.WaitOne(SchedulingMethod.NoScheduling);
         }
-
-        #pragma warning disable CA1068
+        
         #region Helpers
 
         /// <inheritdoc />
@@ -1288,6 +1287,5 @@ namespace MihaZupan.TelegramBotClients
             MakeRequestAsync(new DeleteStickerFromSetRequest(sticker), cancellationToken, schedulingMethod);
 
         #endregion
-        #pragma warning restore CA1068
     }
 }
