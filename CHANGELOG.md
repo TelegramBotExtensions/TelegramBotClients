@@ -5,25 +5,32 @@
 
 
 
-
-## [1.0.4] - 2018-05-11
-
-## Added
-
-- warning disable for CA1068
-- readonly modifiers on a lot of things thanks to @karb0f0s
-- await to method calls in ReadMe usage example
+## [1.0.5] - 2018-05-11
 
 ## Changed
 
-- Removed async/await from 'MakeRequestAsync' overloads
+- Reduced the 'SafeGeneralInterval' by 1 ms
+- Reduced MaxBurst values of 'SchedulerSettings'
+
+
+## [1.0.4] - 2018-05-11
+
+### Added
+
+- warning disable for CA1068
+- readonly modifiers on a lot of things (@karb0f0s)
+- await to method calls in ReadMe usage example (@karb0f0s)
+
+### Changed
+
+- Removed async/await from 'MakeRequestAsync' overloads (@karb0f0s)
 - The Obsolete behaviour on the default 'MakeRequestAsync' from error to warning
 
-## Fixed
+### Fixed
 
 - 'UpdateQueue' in 'TelegramRequestScheduler' now removes itmes from the old queue when switching to general queue
-- 'WaitOneInternalLocked' in 'TelegramRequestScheduler' now passes clientId to constructor of 'SchedulerRequestItem'
-- Typo in SchedulerSettings causing SafePrivateChatInterval to be set to SafeGeneralInterval
+- 'WaitOneInternalLocked' in 'TelegramRequestScheduler' now passes clientId to constructor of 'SchedulerRequestItem' (@karb0f0s)
+- Typo in SchedulerSettings causing SafePrivateChatInterval to be set to SafeGeneralInterval (@karb0f0s)
 
 
 ## [1.0.3] - 2018-05-11
