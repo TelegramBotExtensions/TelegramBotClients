@@ -7,7 +7,7 @@
 - Moved suppression of CA1068 to the GlobalSuppressions.cs file
 
 
-## [1.0.5] - 2018-05-11
+## [1.0.5] - 2018-05-12
 
 ### Changed
 
