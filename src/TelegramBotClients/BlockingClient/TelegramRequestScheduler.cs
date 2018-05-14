@@ -146,6 +146,8 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
 
         public void WaitOne(SchedulingMethod schedulingMethod)
         {
+            if (schedulingMethod == SchedulingMethod.Ignore) return;
+
             ManualResetEvent mre;
             lock (QueueLock)
             {
@@ -156,6 +158,8 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
 
         public void WaitOne(ChatId chatId, SchedulingMethod schedulingMethod)
         {
+            if (schedulingMethod == SchedulingMethod.Ignore) return;
+
             if (chatId.Identifier != default) // Chat referenced by ID
             {
                 WaitOneInternalLocked(chatId.Identifier, schedulingMethod);

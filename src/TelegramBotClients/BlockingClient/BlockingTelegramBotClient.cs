@@ -216,11 +216,8 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             SchedulingMethod schedulingMethod)
         {
-            if (schedulingMethod != SchedulingMethod.Ignore)
-            {
-                if (chatId == null) Scheduler.WaitOne(schedulingMethod);
-                else Scheduler.WaitOne(chatId, schedulingMethod);
-            }
+            if (chatId == null) Scheduler.WaitOne(schedulingMethod);
+            else Scheduler.WaitOne(chatId, schedulingMethod);
 
             return Client.MakeRequestAsync(request, cancellationToken);
         }
