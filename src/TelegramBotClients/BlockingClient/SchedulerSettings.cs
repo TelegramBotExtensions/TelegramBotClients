@@ -12,12 +12,12 @@
         public readonly int GroupChatMaxBurst;
 
         public SchedulerSettings(
-            int safeGeneralInterval = 35,
-            int generalMaxBurts = 10,
+            int safeGeneralInterval = 34,
+            int generalMaxBurts = 5,
             int safePrivateChatInterval = 1000,
-            int privateChatMaxBurst = 5,
+            int privateChatMaxBurst = 3,
             int safeGroupChatInterval = 3000,
-            int groupChatMaxBurst = 5)
+            int groupChatMaxBurst = 3)
         {
             SafeGeneralInterval = safeGeneralInterval;
             GeneralMaxBurst = generalMaxBurts;

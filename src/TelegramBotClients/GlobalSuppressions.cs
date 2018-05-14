@@ -1,0 +1,1 @@
+﻿[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "CA1068", Justification = "Can not be avoided")]
