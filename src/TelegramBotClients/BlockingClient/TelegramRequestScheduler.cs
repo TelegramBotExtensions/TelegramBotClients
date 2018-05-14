@@ -79,6 +79,8 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
             var node = queue.First;
             do
             {
+                var nextNode = node.Next;
+
                 ChatRequestCount requestCount = RequestCounts[node.Value.ChatId];
                 if (requestCount.GetRequestCount(intervals) <= maxBurst)
                 {
@@ -91,14 +93,9 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
                     {
                         lastAddedNode = InsertToGeneralQueue(node.Value, lastAddedNode);
                     }
-                    var nextNode = node.Next;
                     queue.Remove(node);
-                    node = nextNode;
                 }
-                else
-                {
-                    node = node.Next;
-                }
+                node = nextNode;
             }
             while (node != null);
         }
@@ -106,19 +103,31 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
         private LinkedListNode<ScheduledRequestItem> InsertToGeneralQueue(ScheduledRequestItem requestItem, LinkedListNode<ScheduledRequestItem> searchFrom)
         {
             var node = searchFrom;
-            while (node != null && (node.Value.IsHighPriority || requestItem.TimerIntervalWhenAdded > node.Value.TimerIntervalWhenAdded)) node = node.Next;
+            while (
+                node != null &&
+                (node.Value.IsHighPriority ||
+                requestItem.TimerIntervalWhenAdded > node.Value.TimerIntervalWhenAdded)
+            )
+            {
+                node = node.Next;
+            }
 
-            if (node == null) return GeneralQueue.AddLast(requestItem);
-            else return GeneralQueue.AddBefore(node, requestItem);
+            if (node == null)
+                return GeneralQueue.AddLast(requestItem);
+
+            return GeneralQueue.AddBefore(node, requestItem);
         }
 
         private LinkedListNode<ScheduledRequestItem> InsertToGeneralQueueHp(ScheduledRequestItem requestItem, LinkedListNode<ScheduledRequestItem> searchFrom)
         {
             var node = searchFrom;
-            while (node?.Value.IsHighPriority == true) node = node.Next;
+            while (node?.Value.IsHighPriority == true)
+                node = node.Next;
 
-            if (node == null) return GeneralQueue.AddLast(requestItem);
-            else return GeneralQueue.AddBefore(node, requestItem);
+            if (node == null)
+                return GeneralQueue.AddLast(requestItem);
+
+            return GeneralQueue.AddBefore(node, requestItem);
         }
 
         #region Publicly available
@@ -156,12 +165,7 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
                 // It is a channel and referenced by the @Username instead of the ID
                 // Fallback to general limits
                 // You should not send that much crap to a channel anyway
-                ManualResetEvent mre;
-                lock (QueueLock)
-                {
-                    mre = WaitOneInternalUnlocked(schedulingMethod);
-                }
-                mre?.WaitOne();
+                WaitOne(schedulingMethod);
             }
         }
         #endregion
@@ -169,29 +173,21 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
         // Returns a ManualResetEvent if the request was enqueued or null if it can be executed immediately
         private ManualResetEvent WaitOneInternalUnlocked(SchedulingMethod schedulingMethod)
         {
-            if (schedulingMethod == SchedulingMethod.NoScheduling)
+            if (schedulingMethod == SchedulingMethod.NoScheduling ||
+                GeneralRequestCount <= GeneralMaxBurst)
             {
                 GeneralRequestCount++;
                 return null;
             }
-            bool isHighPriority = schedulingMethod == SchedulingMethod.HighPriority;
 
-            ManualResetEvent mre;
-            if (GeneralRequestCount <= GeneralMaxBurst)
-            {
-                GeneralRequestCount++;
-                return null;
-            }
+            bool isHighPriority = schedulingMethod == SchedulingMethod.HighPriority;
+            var requestItem = new ScheduledRequestItem(TimerIntervals, isHighPriority);
+            if (isHighPriority)
+                GeneralQueue.AddFirst(requestItem);
             else
-            {
-                var requestItem = new ScheduledRequestItem(TimerIntervals, isHighPriority);
-                if (isHighPriority)
-                    GeneralQueue.AddFirst(requestItem);
-                else
-                    GeneralQueue.AddLast(requestItem);
-                mre = requestItem.MRE;
-            }
-            return mre;
+                GeneralQueue.AddLast(requestItem);
+
+            return requestItem.MRE;
         }
 
         // Used for private chats, groups, supergroups and channels when they are referenced by ID
@@ -199,84 +195,80 @@ namespace MihaZupan.TelegramBotClients.BlockingClient
         {
             if (schedulingMethod == SchedulingMethod.NoScheduling)
             {
-                lock (QueueLock)
-                {
-                    GeneralRequestCount++;
-                    if (RequestCounts.TryGetValue(chatId, out ChatRequestCount chatRequestCount))
-                    {
-                        chatRequestCount.GetRequestCount(chatId > 0 ? PrivateChatIntervals : GroupChatIntervals);
-                        chatRequestCount.Increment();
-                    }
-                    else
-                    {
-                        RequestCounts.Add(chatId, new ChatRequestCount(1, chatId > 0 ? PrivateChatIntervals : GroupChatIntervals));
-                    }
-                }
+                ProcessRequestWithoutScheduling(chatId);
                 return;
             }
-            bool isHighPriority = schedulingMethod == SchedulingMethod.HighPriority;
 
-            ManualResetEvent mre = null;
-
+            long chatIntervals;
+            int chatMaxBurst;
+            LinkedList<ScheduledRequestItem> chatQueue;
             if (chatId > 0)
             {
-                lock (QueueLock)
-                {
-                    if (RequestCounts.TryGetValue(chatId, out ChatRequestCount ChatRequestCount))
-                    {
-                        if (ChatRequestCount.GetRequestCount(PrivateChatIntervals) <= PrivateChatMaxBurst)
-                        {
-                            ChatRequestCount.Increment();
-                            mre = WaitOneInternalUnlocked(schedulingMethod);
-                        }
-                        else
-                        {
-                            var requestItem = new ScheduledRequestItem(TimerIntervals, isHighPriority, chatId);
-                            if (isHighPriority)
-                                PrivateChatQueue.AddFirst(requestItem);
-                            else
-                                PrivateChatQueue.AddLast(requestItem);
-                            mre = requestItem.MRE;
-                        }
-                    }
-                    else
-                    {
-                        RequestCounts.Add(chatId, new ChatRequestCount(1, PrivateChatIntervals));
-                        mre = WaitOneInternalUnlocked(schedulingMethod);
-                    }
-                }
+                chatIntervals = PrivateChatIntervals;
+                chatMaxBurst = PrivateChatMaxBurst;
+                chatQueue = PrivateChatQueue;
             }
             else
             {
-                lock (QueueLock)
+                chatIntervals = GroupChatIntervals;
+                chatMaxBurst = GroupChatMaxBurst;
+                chatQueue = GroupChatQueue;
+            }
+
+            bool isHighPriority = schedulingMethod == SchedulingMethod.HighPriority;
+            ManualResetEvent mre = ProcessRequest(chatId, schedulingMethod, isHighPriority, chatIntervals, chatMaxBurst, chatQueue);
+
+            mre?.WaitOne();
+        }
+
+        private ManualResetEvent ProcessRequest(long chatId, SchedulingMethod schedulingMethod, bool isHighPriority, long chatIntervals, int chatMaxBurst, LinkedList<ScheduledRequestItem> chatQueue)
+        {
+            ManualResetEvent mre;
+
+            lock (QueueLock)
+            {
+                if (RequestCounts.TryGetValue(chatId, out ChatRequestCount ChatRequestCount))
                 {
-                    if (RequestCounts.TryGetValue(chatId, out ChatRequestCount ChatRequestCount))
+                    if (ChatRequestCount.GetRequestCount(chatIntervals) <= chatMaxBurst)
                     {
-                        if (ChatRequestCount.GetRequestCount(GroupChatIntervals) <= GroupChatMaxBurst)
-                        {
-                            ChatRequestCount.Increment();
-                            mre = WaitOneInternalUnlocked(schedulingMethod);
-                        }
-                        else
-                        {
-                            var requestItem = new ScheduledRequestItem(TimerIntervals, isHighPriority, chatId);
-                            if (isHighPriority)
-                                GroupChatQueue.AddFirst(requestItem);
-                            else
-                                GroupChatQueue.AddLast(requestItem);
-                            mre = requestItem.MRE;
-                        }
+                        ChatRequestCount.Increment();
+                        mre = WaitOneInternalUnlocked(schedulingMethod);
                     }
                     else
                     {
-                        RequestCounts.Add(chatId, new ChatRequestCount(1, GroupChatIntervals));
-                        mre = WaitOneInternalUnlocked(schedulingMethod);
+                        var requestItem = new ScheduledRequestItem(TimerIntervals, isHighPriority, chatId);
+                        if (isHighPriority)
+                            chatQueue.AddFirst(requestItem);
+                        else
+                            chatQueue.AddLast(requestItem);
+                        mre = requestItem.MRE;
                     }
+                }
+                else
+                {
+                    RequestCounts.Add(chatId, new ChatRequestCount(1, chatIntervals));
+                    mre = WaitOneInternalUnlocked(schedulingMethod);
                 }
             }
 
-            mre?.WaitOne();
-            return;
+            return mre;
+        }
+
+        private void ProcessRequestWithoutScheduling(long chatId)
+        {
+            lock (QueueLock)
+            {
+                GeneralRequestCount++;
+                if (RequestCounts.TryGetValue(chatId, out ChatRequestCount chatRequestCount))
+                {
+                    chatRequestCount.GetRequestCount(chatId > 0 ? PrivateChatIntervals : GroupChatIntervals);
+                    chatRequestCount.Increment();
+                }
+                else
+                {
+                    RequestCounts.Add(chatId, new ChatRequestCount(1, chatId > 0 ? PrivateChatIntervals : GroupChatIntervals));
+                }
+            }
         }
     }
 }

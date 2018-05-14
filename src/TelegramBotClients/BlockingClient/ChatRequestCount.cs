@@ -2,33 +2,33 @@
 {
     internal class ChatRequestCount
     {
-        private long LatestInterval;
-        private int Value;
+        private long _latestInterval;
+        private int _requestCount;
 
-        public ChatRequestCount(int value, long currentInterval)
+        public ChatRequestCount(int requestCount, long currentInterval)
         {
-            LatestInterval = currentInterval;
-            Value = value;
+            _latestInterval = currentInterval;
+            _requestCount = requestCount;
         }
 
         public void Increment()
         {
-            Value++;
+            _requestCount++;
         }
 
         public int GetRequestCount(long currentInterval)
         {
-            long diff = currentInterval - LatestInterval;
-            if (diff >= Value)
+            long diff = currentInterval - _latestInterval;
+            if (diff >= _requestCount)
             {
-                Value = 0;
+                _requestCount = 0;
             }
             else
             {
-                Value -= (int)diff;
+                _requestCount -= (int)diff;
             }
-            LatestInterval = currentInterval;
-            return Value;
+            _latestInterval = currentInterval;
+            return _requestCount;
         }
     }
 }
