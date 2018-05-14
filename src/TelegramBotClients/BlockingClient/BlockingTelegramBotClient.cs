@@ -188,7 +188,7 @@ namespace MihaZupan.TelegramBotClients
             if (e.MethodName == "getUpdates")
                 Scheduler.WaitOne(SchedulingMethod.NoScheduling);
         }
-        
+
         #region Helpers
 
         /// <inheritdoc />

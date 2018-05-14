@@ -35,7 +35,6 @@
 - 'WaitOneInternalLocked' in 'TelegramRequestScheduler' now passes clientId to constructor of 'SchedulerRequestItem' (@karb0f0s)
 - Typo in SchedulerSettings causing SafePrivateChatInterval to be set to SafeGeneralInterval (@karb0f0s)
 
-
 ## [1.0.3] - 2018-05-11
 
 ### Fixed
