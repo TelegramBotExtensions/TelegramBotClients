@@ -2,8 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+
+- Unit tests for the 'BlockingClient'
+- The unit test project to the 'TelegramBotClients' solution
+- A unit test project (@karb0f0s)
+
 ### Changed
 
+- Refactored the 'ChatRequestCount' code (@karb0f0s)
+- Refactored the 'TelegramRequestScheduler' code (@karb0f0s)
 - Moved repository to TelegramBotExtensions organization
 - Moved suppression of CA1068 to the GlobalSuppressions.cs file
 
