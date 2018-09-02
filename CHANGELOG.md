@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.0.6] - 2018-09-02
 
 ### Added
 
@@ -10,6 +10,7 @@
 
 ### Changed
 
+- Updated BlockingTelegramBotClient to Telegram.Bot 14.9.0
 - Refactored the 'ChatRequestCount' code (@karb0f0s)
 - Refactored the 'TelegramRequestScheduler' code (@karb0f0s)
 - Moved repository to TelegramBotExtensions organization

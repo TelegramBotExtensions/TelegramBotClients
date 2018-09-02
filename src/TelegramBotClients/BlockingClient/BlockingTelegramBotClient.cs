@@ -188,7 +188,7 @@ namespace MihaZupan.TelegramBotClients
             if (e.MethodName == "getUpdates")
                 Scheduler.WaitOne(SchedulingMethod.NoScheduling);
         }
-        
+
         #region Helpers
 
         /// <inheritdoc />
@@ -372,6 +372,7 @@ namespace MihaZupan.TelegramBotClients
             int duration = default,
             string performer = default,
             string title = default,
+            InputMedia thumb = default,
             bool disableNotification = default,
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
@@ -385,6 +386,7 @@ namespace MihaZupan.TelegramBotClients
                 Duration = duration,
                 Performer = performer,
                 Title = title,
+                Thumb = thumb,
                 DisableNotification = disableNotification,
                 ReplyToMessageId = replyToMessageId,
                 ReplyMarkup = replyMarkup
@@ -394,6 +396,7 @@ namespace MihaZupan.TelegramBotClients
         public Task<Message> SendDocumentAsync(
             ChatId chatId,
             InputOnlineFile document,
+            InputMedia thumb = default,
             string caption = default,
             ParseMode parseMode = default,
             bool disableNotification = default,
@@ -404,6 +407,7 @@ namespace MihaZupan.TelegramBotClients
         ) =>
             MakeRequestAsync(new SendDocumentRequest(chatId, document)
             {
+                Thumb = thumb,
                 Caption = caption,
                 ParseMode = parseMode,
                 DisableNotification = disableNotification,
@@ -435,6 +439,7 @@ namespace MihaZupan.TelegramBotClients
             int duration = default,
             int width = default,
             int height = default,
+            InputMedia thumb = default,
             string caption = default,
             ParseMode parseMode = default,
             bool supportsStreaming = default,
@@ -449,12 +454,42 @@ namespace MihaZupan.TelegramBotClients
                 Duration = duration,
                 Width = width,
                 Height = height,
+                Thumb = thumb,
                 Caption = caption,
                 ParseMode = parseMode,
                 SupportsStreaming = supportsStreaming,
                 DisableNotification = disableNotification,
                 ReplyToMessageId = replyToMessageId,
                 ReplyMarkup = replyMarkup
+            }, cancellationToken, chatId, schedulingMethod);
+
+        /// <inheritdoc />
+        public Task<Message> SendAnimationAsync(
+            ChatId chatId,
+            InputOnlineFile animation,
+            int duration = default,
+            int width = default,
+            int height = default,
+            InputMedia thumb = default,
+            string caption = default,
+            ParseMode parseMode = default,
+            bool disableNotification = default,
+            int replyToMessageId = default,
+            IReplyMarkup replyMarkup = default,
+            CancellationToken cancellationToken = default,
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+        ) =>
+            MakeRequestAsync(new SendAnimationRequest(chatId, animation)
+            {
+                Duration = duration,
+                Width = width,
+                Height = height,
+                Thumb = thumb,
+                Caption = caption,
+                ParseMode = parseMode,
+                DisableNotification = disableNotification,
+                ReplyToMessageId = replyToMessageId,
+                ReplyMarkup = replyMarkup,
             }, cancellationToken, chatId, schedulingMethod);
 
         /// <inheritdoc />
@@ -486,6 +521,7 @@ namespace MihaZupan.TelegramBotClients
             InputTelegramFile videoNote,
             int duration = default,
             int length = default,
+            InputMedia thumb = default,
             bool disableNotification = default,
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
@@ -496,12 +532,14 @@ namespace MihaZupan.TelegramBotClients
             {
                 Duration = duration,
                 Length = length,
+                Thumb = thumb,
                 DisableNotification = disableNotification,
                 ReplyToMessageId = replyToMessageId,
                 ReplyMarkup = replyMarkup
             }, cancellationToken, chatId, schedulingMethod);
 
         /// <inheritdoc />
+        [Obsolete("Use the other overload of this method instead. Only photo and video input types are allowed.")]
         public Task<Message[]> SendMediaGroupAsync(
             ChatId chatId,
             IEnumerable<InputMediaBase> media,
@@ -515,6 +553,22 @@ namespace MihaZupan.TelegramBotClients
                 DisableNotification = disableNotification,
                 ReplyToMessageId = replyToMessageId,
             }, cancellationToken, chatId, schedulingMethod);
+
+        /// <inheritdoc />
+        public Task<Message[]> SendMediaGroupAsync(
+            IEnumerable<IAlbumInputMedia> inputMedia,
+            ChatId chatId,
+            bool disableNotification = default,
+            int replyToMessageId = default,
+            CancellationToken cancellationToken = default,
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+        ) =>
+            MakeRequestAsync(new SendMediaGroupRequest(chatId, inputMedia)
+            {
+                DisableNotification = disableNotification,
+                ReplyToMessageId = replyToMessageId
+            },
+            cancellationToken, chatId, schedulingMethod);
 
         /// <inheritdoc />
         public Task<Message> SendLocationAsync(
@@ -544,6 +598,7 @@ namespace MihaZupan.TelegramBotClients
             string title,
             string address,
             string foursquareId = default,
+            string foursquareType = default,
             bool disableNotification = default,
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
@@ -553,6 +608,7 @@ namespace MihaZupan.TelegramBotClients
             MakeRequestAsync(new SendVenueRequest(chatId, latitude, longitude, title, address)
             {
                 FoursquareId = foursquareId,
+                FoursquareType = foursquareType,
                 DisableNotification = disableNotification,
                 ReplyToMessageId = replyToMessageId,
                 ReplyMarkup = replyMarkup
@@ -564,6 +620,7 @@ namespace MihaZupan.TelegramBotClients
             string phoneNumber,
             string firstName,
             string lastName = default,
+            string vCard = default,
             bool disableNotification = default,
             int replyToMessageId = default,
             IReplyMarkup replyMarkup = default,
@@ -573,6 +630,7 @@ namespace MihaZupan.TelegramBotClients
             MakeRequestAsync(new SendContactRequest(chatId, phoneNumber, firstName)
             {
                 LastName = lastName,
+                Vcard = vCard,
                 DisableNotification = disableNotification,
                 ReplyToMessageId = replyToMessageId,
                 ReplyMarkup = replyMarkup
@@ -848,13 +906,14 @@ namespace MihaZupan.TelegramBotClients
             ChatId chatId,
             int messageId,
             string caption,
+            ParseMode parseMode = default,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
             SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
-            MakeRequestAsync(new EditMessageCaptionRequest(chatId, messageId)
+            MakeRequestAsync(new EditMessageCaptionRequest(chatId, messageId, caption)
             {
-                Caption = caption,
+                ParseMode = parseMode,
                 ReplyMarkup = replyMarkup
             }, cancellationToken, chatId, schedulingMethod);
 
@@ -862,15 +921,47 @@ namespace MihaZupan.TelegramBotClients
         public Task EditMessageCaptionAsync(
             string inlineMessageId,
             string caption,
+            ParseMode parseMode = default,
             InlineKeyboardMarkup replyMarkup = default,
             CancellationToken cancellationToken = default,
             SchedulingMethod schedulingMethod = SchedulingMethod.Normal
         ) =>
-            MakeRequestAsync(new EditInlineMessageCaptionRequest(inlineMessageId)
+            MakeRequestAsync(new EditInlineMessageCaptionRequest(inlineMessageId, caption)
             {
-                Caption = caption,
+                ParseMode = parseMode,
                 ReplyMarkup = replyMarkup
             }, cancellationToken, schedulingMethod);
+
+        /// <inheritdoc />
+        public Task<Message> EditMessageMediaAsync(
+            ChatId chatId,
+            int messageId,
+            InputMediaBase media,
+            InlineKeyboardMarkup replyMarkup = default,
+            CancellationToken cancellationToken = default,
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+        ) =>
+            MakeRequestAsync(
+                new EditMessageMediaRequest(chatId, messageId, media)
+                {
+                    ReplyMarkup = replyMarkup
+                },
+                cancellationToken, chatId, schedulingMethod);
+
+        /// <inheritdoc />
+        public Task EditMessageMediaAsync(
+            string inlineMessageId,
+            InputMediaBase media,
+            InlineKeyboardMarkup replyMarkup = default,
+            CancellationToken cancellationToken = default,
+            SchedulingMethod schedulingMethod = SchedulingMethod.Normal
+        ) =>
+            MakeRequestAsync(
+                new EditInlineMessageMediaRequest(inlineMessageId, media)
+                {
+                    ReplyMarkup = replyMarkup,
+                },
+                cancellationToken, schedulingMethod);
 
         /// <inheritdoc />
         public Task<Message> EditMessageReplyMarkupAsync(
