@@ -21,7 +21,7 @@ For even better rate-limiting and update processing, consider using [SharpCollec
 
 This will ensure that only one update from each group/chat will be processed at the same time.
 
-```
+```c#
 void StartBot()
 {
     var updateQueue = new WorkScheduler<Update>(OnUpdate);
