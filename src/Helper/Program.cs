@@ -76,12 +76,11 @@ namespace MakeRequestAsyncModifier
 
                 Console.WriteLine("Replacing " + name);
 
-                string newBlock = "/// <inheritdoc />\n";
-                newBlock += indent + "public async Task" + (hasType ? match.Groups[1].Value : "") + " " + name + "(" + parameters + ")\n";
+                string newBlock = "public async Task" + (hasType ? match.Groups[1].Value : "") + " " + name + "(" + parameters + ")\n";
                 newBlock += indent + "{\n";
                 newBlock += indent2 + "await RequestScheduler.YieldAsync(" + bucket + ").ConfigureAwait(false);\n";
                 newBlock += "\n";
-                newBlock += indent2 + (hasType ? "return " : "") + "await BotClient." + name + "(" + callingParams + ").ConfigureAwait(false);\n";
+                newBlock += indent2 + (hasType ? "return " : "") + "await BaseClient." + name + "(" + callingParams + ").ConfigureAwait(false);\n";
                 newBlock += indent + "}";
 
                 return newBlock;

@@ -161,5 +161,15 @@ namespace MihaZupan.TelegramBotClients.RateLimitedClient
                 return YieldAsyncCore(bucket, _groupTimestampIncrement);
             }
         }
+
+        public void Stop()
+        {
+            try
+            {
+                _timer.Change(Timeout.Infinite, Timeout.Infinite);
+                _timer.Dispose();
+            }
+            catch { }
+        }
     }
 }
