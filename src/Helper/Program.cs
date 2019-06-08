@@ -1,10 +1,7 @@
-﻿using MihaZupan.TelegramBotClients.RateLimitedClient;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace MakeRequestAsyncModifier
 {
@@ -12,25 +9,6 @@ namespace MakeRequestAsyncModifier
     {
         static void Main()
         {
-            var scheduler = new TelegramRequestScheduler();
-
-            Stopwatch s = Stopwatch.StartNew();
-
-            Task[] tasks = new Task[100];
-
-            for (int i = 0; i < 100; i++)
-            {
-                int ii = i;
-                tasks[i] = Task.Run(async () => {
-                    await scheduler.YieldAsync(5);
-                    Console.WriteLine(s.ElapsedMilliseconds + " ms");
-                });
-            }
-
-            Task.WaitAll(tasks);
-
-            Console.ReadLine();
-
             string sourceFilePath = "../../../../TelegramBotClients/RateLimitedClient/RateLimitedTelegramBotClient.cs";
 
             if (!File.Exists(sourceFilePath))

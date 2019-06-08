@@ -7,9 +7,5 @@
     <OutputType>Exe</OutputType>
     <StartupObject />
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\TelegramBotClients\TelegramBotClients.csproj" />
-  </ItemGroup>
   
 </Project>
