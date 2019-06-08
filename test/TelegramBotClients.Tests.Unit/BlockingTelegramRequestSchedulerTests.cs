@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using MihaZupan.TelegramBotClients.BlockingClient;
 using Xunit;
 
-namespace TelegramBotClients.Tests.Unit.BlockingClient
+namespace MihaZupan.TelegramBotClients.Tests.Unit
 {
-    public class TelegramRequestSchedulerTests
+    public class BlockingTelegramRequestSchedulerTests
     {
         private const long TestPrivateChatId = 123;
         private const long TestGroupChatId = -123;
@@ -13,7 +13,7 @@ namespace TelegramBotClients.Tests.Unit.BlockingClient
         private readonly SchedulerSettings _schedulerSettings;
         private readonly TelegramRequestScheduler _scheduler;
 
-        public TelegramRequestSchedulerTests()
+        public BlockingTelegramRequestSchedulerTests()
         {
             _schedulerSettings = SchedulerSettings.Default;
             _scheduler = new TelegramRequestScheduler(_schedulerSettings);

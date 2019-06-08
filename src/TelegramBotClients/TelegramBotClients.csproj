@@ -1,35 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.2;net45</TargetFrameworks>
-	<AssemblyName>MihaZupan.TelegramBotClients</AssemblyName>
-	<LangVersion>latest</LangVersion>
-    <RootNamespace>MihaZupan.TelegramBotClients</RootNamespace>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>MihaZupan</Authors>
-    <Company>MihaZupan</Company>
-    <Description>Collection of TelegramWebClients that implement various features such as rate-limiting.</Description>
-    <Copyright>Copyright © Miha Zupan 2018</Copyright>
-    <PackageProjectUrl>https://github.com/TelegramBotExtensions/TelegramBotClients</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/TelegramBotExtensions/TelegramBotClients/master/LICENSE</PackageLicenseUrl>
-    <PackageIconUrl>https://telegram.org/img/tl_card_process.gif</PackageIconUrl>
-    <RepositoryUrl>https://github.com/TelegramBotExtensions/TelegramBotClientss.git</RepositoryUrl>
-    <PackageTags>Telegram;Bot;Rate;Scheduling;Queue</PackageTags>
+    <Version>1.0.6</Version>
+    <Authors>Miha Zupan</Authors>
+    <Company>Miha Zupan</Company>
+    <Description>A collection of TelegramBotClients that implement various features</Description>
+    <Copyright>Miha Zupan</Copyright>
     <Product>TelegramBotClients</Product>
     <PackageId>TelegramBotClients</PackageId>
-    <Version>1.0.6</Version>
-    <AssemblyVersion>1.0.6.0</AssemblyVersion>
-    <FileVersion>1.0.6.0</FileVersion>
-    <LangVersion>latest</LangVersion>
+    <PackageProjectUrl>https://github.com/TelegramBotExtensions/TelegramBotClients</PackageProjectUrl>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageTags>telegram bot rate scheduling queue</PackageTags>
+    <LangVersion>8.0</LangVersion>
+    <RootNamespace>MihaZupan.TelegramBotClients</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Telegram.Bot" Version="14.9.0" />
+    <PackageReference Include="Telegram.Bot" Version="14.11.0" />
+    <PackageReference Include="SharpCollections" Version="0.1.4" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
-    <Reference Include="System.Net.Http" />	
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'!='net45'">	
-    <Reference Include="System.Threading" />
-  </ItemGroup>
+  
 </Project>

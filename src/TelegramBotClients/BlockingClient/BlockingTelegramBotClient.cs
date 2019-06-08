@@ -20,6 +20,7 @@ using MihaZupan.TelegramBotClients.BlockingClient;
 
 namespace MihaZupan.TelegramBotClients
 {
+    [Obsolete("Use RateLimitedTelegramBotClient instead")]
     public class BlockingTelegramBotClient
     {
         private readonly TelegramBotClient Client;
