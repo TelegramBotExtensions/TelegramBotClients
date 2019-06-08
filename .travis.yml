@@ -1,0 +1,16 @@
+dist: xenial
+sudo: false
+
+language: csharp
+mono: none
+dotnet: 2.2.300
+
+script: >
+  dotnet build -f netcoreapp2.1 -c Release &&
+  dotnet build -f netcoreapp2.1 -c Debug &&
+  dotnet test test/TelegramBotClients.Tests.Unit -f netcoreapp2.1 -c Release --no-build --list-tests &&
+  dotnet test test/TelegramBotClients.Tests.Unit -f netcoreapp2.1 -c Release --no-build &&
+  dotnet test test/TelegramBotClients.Tests.Unit -f netcoreapp2.1 -c Debug --no-build
+
+notifications:
+  email: false

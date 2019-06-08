@@ -1,0 +1,19 @@
+version: '{build}'
+max_jobs: 1
+
+branches:
+  only:
+    - master
+
+image: Visual Studio 2019 Preview
+configuration: Release
+
+before_build:
+  - nuget restore -verbosity quiet
+
+build:
+  project: TelegramBotClients.sln
+  verbosity: minimal
+
+test_script:
+  - dotnet test ./test/TelegramBotClients.Tests.Unit -c Release --no-build && dotnet test ./test/TelegramBotClients.Tests.Unit -c Debug
