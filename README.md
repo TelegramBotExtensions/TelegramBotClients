@@ -25,7 +25,7 @@ This will ensure that only one update from each group/chat will be processed at 
 void StartBot()
 {
     var updateQueue = new WorkScheduler<Update>(OnUpdate);
-    Bot.OnUpdate += (_, e) => updateQueue.Enqueue(e.Update, GetBucketId(e.Update));
+    Bot.OnUpdate += (_, e) => updateQueue.Enqueue(e.Update, GetBucket(e.Update));
     Bot.StartReceiving();
 }
 
@@ -38,7 +38,7 @@ public async Task OnUpdate(Update update)
 }
 ```
 
-See [example `GetBucketId(Update)` implementation](https://gist.github.com/MihaZupan/fc55672e78091b2e5f21da311ff5c7d0).
+See [example `GetBucket(Update)` implementation](https://gist.github.com/MihaZupan/fc55672e78091b2e5f21da311ff5c7d0).
 
 ## Installation
 
