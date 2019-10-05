@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.7</Version>
+    <Version>2.0.0</Version>
     <Authors>Miha Zupan</Authors>
     <Company>Miha Zupan</Company>
     <Description>A collection of TelegramBotClients that implement various features</Description>
