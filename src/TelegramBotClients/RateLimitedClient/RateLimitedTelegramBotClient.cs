@@ -466,13 +466,6 @@ namespace MihaZupan.TelegramBotClients
             await BaseClient.PromoteChatMemberAsync(chatId, userId, canChangeInfo, canPostMessages, canEditMessages, canDeleteMessages, canInviteUsers, canRestrictMembers, canPinMessages, canPromoteMembers, cancellationToken).ConfigureAwait(false);
         }
 
-        public async Task RestrictChatMemberAsync(ChatId chatId, int userId, DateTime untilDate = default, bool? canSendMessages = null, bool? canSendMediaMessages = null, bool? canSendOtherMessages = null, bool? canAddWebPagePreviews = null, CancellationToken cancellationToken = default)
-        {
-            await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
-
-            await BaseClient.RestrictChatMemberAsync(chatId, userId, untilDate, canSendMessages, canSendMediaMessages, canSendOtherMessages, canAddWebPagePreviews, cancellationToken).ConfigureAwait(false);
-        }
-
         public async Task<Message> SendAnimationAsync(ChatId chatId, InputOnlineFile animation, int duration = 0, int width = 0, int height = 0, InputMedia thumb = null, string caption = null, ParseMode parseMode = ParseMode.Default, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
             await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
@@ -703,6 +696,20 @@ namespace MihaZupan.TelegramBotClients
             await RequestScheduler.YieldAsync(userId).ConfigureAwait(false);
 
             return await BaseClient.UploadStickerFileAsync(userId, pngSticker, cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task RestrictChatMemberAsync(ChatId chatId, int userId, ChatPermissions permissions, DateTime untilDate = default, CancellationToken cancellationToken = default)
+        {
+            await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
+
+            await BaseClient.RestrictChatMemberAsync(chatId, userId, permissions, untilDate, cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task SetChatPermissionsAsync(ChatId chatId, ChatPermissions permissions, CancellationToken cancellationToken = default)
+        {
+            await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
+
+            await BaseClient.SetChatPermissionsAsync(chatId, permissions, cancellationToken).ConfigureAwait(false);
         }
 
         #endregion GENERATED
