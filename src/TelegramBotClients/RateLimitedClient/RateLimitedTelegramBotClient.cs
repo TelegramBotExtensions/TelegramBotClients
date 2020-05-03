@@ -49,10 +49,7 @@ namespace MihaZupan.TelegramBotClients
 
         #region Config Properties
 
-        public int BotId
-        {
-            get => BaseClient.BotId;
-        }
+        public int BotId => BaseClient.BotId;
 
         public TimeSpan Timeout
         {
@@ -60,10 +57,7 @@ namespace MihaZupan.TelegramBotClients
             set => BaseClient.Timeout = value;
         }
 
-        public bool IsReceiving
-        {
-            get => BaseClient.IsReceiving;
-        }
+        public bool IsReceiving => BaseClient.IsReceiving;
 
         public int MessageOffset
         {
@@ -164,6 +158,24 @@ namespace MihaZupan.TelegramBotClients
             await BaseClient.AddStickerToSetAsync(userId, name, pngSticker, emojis, maskPosition, cancellationToken).ConfigureAwait(false);
         }
 
+        public async Task CreateNewAnimatedStickerSetAsync(int userId, string name, string title, InputFileStream tgsSticker, string emojis,
+            bool isMasks = false, MaskPosition maskPosition = null, CancellationToken cancellationToken = default)
+        {
+            await RequestScheduler.YieldAsync(userId).ConfigureAwait(false);
+
+            await BaseClient.CreateNewAnimatedStickerSetAsync(userId, name, title, tgsSticker, emojis, isMasks,
+                maskPosition, cancellationToken);
+        }
+
+        public async Task AddAnimatedStickerToSetAsync(int userId, string name, InputFileStream tgsSticker, string emojis,
+            MaskPosition maskPosition = null, CancellationToken cancellationToken = default)
+        {
+            await RequestScheduler.YieldAsync(userId).ConfigureAwait(false);
+
+            await BaseClient.AddAnimatedStickerToSetAsync(userId, name, tgsSticker, emojis, maskPosition,
+                cancellationToken);
+        }
+
         public async Task AnswerCallbackQueryAsync(string callbackQueryId, string text = null, bool showAlert = false, string url = null, int cacheTime = 0, CancellationToken cancellationToken = default)
         {
             await RequestScheduler.YieldAsync().ConfigureAwait(false);
@@ -176,6 +188,22 @@ namespace MihaZupan.TelegramBotClients
             await RequestScheduler.YieldAsync().ConfigureAwait(false);
 
             await BaseClient.AnswerInlineQueryAsync(inlineQueryId, results, cacheTime, isPersonal, nextOffset, switchPmText, switchPmParameter, cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task<Message> SendInvoiceAsync(int chatId, string title, string description, string payload, string providerToken,
+            string startParameter, string currency, IEnumerable<LabeledPrice> prices, string providerData = null, string photoUrl = null,
+            int photoSize = 0, int photoWidth = 0, int photoHeight = 0, bool needName = false, bool needPhoneNumber = false,
+            bool needEmail = false, bool needShippingAddress = false, bool isFlexible = false, bool disableNotification = false,
+            int replyToMessageId = 0, InlineKeyboardMarkup replyMarkup = null,
+            CancellationToken cancellationToken = default, bool sendPhoneNumberToProvider = default,
+            bool sendEmailToProvider = default)
+        {
+            await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
+
+            return await BaseClient.SendInvoiceAsync(chatId, title, description, payload, providerToken, startParameter,
+                currency, prices, providerData, photoUrl, photoSize, photoWidth, photoHeight, needName, needPhoneNumber,
+                needEmail, needShippingAddress, isFlexible, disableNotification, replyToMessageId, replyMarkup,
+                cancellationToken, sendPhoneNumberToProvider, sendEmailToProvider);
         }
 
         public async Task AnswerPreCheckoutQueryAsync(string preCheckoutQueryId, CancellationToken cancellationToken = default)
@@ -239,6 +267,14 @@ namespace MihaZupan.TelegramBotClients
             await RequestScheduler.YieldAsync().ConfigureAwait(false);
 
             await BaseClient.DeleteStickerFromSetAsync(sticker, cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task SetStickerSetThumbAsync(string name, int userId, InputOnlineFile thumb = null,
+            CancellationToken cancellationToken = default)
+        {
+            await RequestScheduler.YieldAsync(userId).ConfigureAwait(false);
+
+            await BaseClient.SetStickerSetThumbAsync(name, userId, thumb, cancellationToken).ConfigureAwait(false);        
         }
 
         public async Task DeleteWebhookAsync(CancellationToken cancellationToken = default)
@@ -466,6 +502,14 @@ namespace MihaZupan.TelegramBotClients
             await BaseClient.PromoteChatMemberAsync(chatId, userId, canChangeInfo, canPostMessages, canEditMessages, canDeleteMessages, canInviteUsers, canRestrictMembers, canPinMessages, canPromoteMembers, cancellationToken).ConfigureAwait(false);
         }
 
+        public async Task SetChatAdministratorCustomTitleAsync(ChatId chatId, int userId, string customTitle,
+            CancellationToken cancellationToken = default)
+        {
+            await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
+
+            await BaseClient.SetChatAdministratorCustomTitleAsync(chatId, userId, customTitle, cancellationToken);
+        }
+
         public async Task<Message> SendAnimationAsync(ChatId chatId, InputOnlineFile animation, int duration = 0, int width = 0, int height = 0, InputMedia thumb = null, string caption = null, ParseMode parseMode = ParseMode.Default, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
             await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
@@ -478,6 +522,15 @@ namespace MihaZupan.TelegramBotClients
             await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
 
             return await BaseClient.SendAudioAsync(chatId, audio, caption, parseMode, duration, performer, title, disableNotification, replyToMessageId, replyMarkup, cancellationToken, thumb).ConfigureAwait(false);
+        }
+
+        public async Task<Message> SendDiceAsync(ChatId chatId, bool disableNotification = false, int replyToMessageId = 0,
+            IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        {
+            await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
+
+            return await BaseClient.SendDiceAsync(chatId, disableNotification, replyToMessageId, replyMarkup,
+                cancellationToken);
         }
 
         public async Task SendChatActionAsync(ChatId chatId, ChatAction chatAction, CancellationToken cancellationToken = default)
@@ -506,13 +559,6 @@ namespace MihaZupan.TelegramBotClients
             await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
 
             return await BaseClient.SendGameAsync(chatId, gameShortName, disableNotification, replyToMessageId, replyMarkup, cancellationToken).ConfigureAwait(false);
-        }
-
-        public async Task<Message> SendInvoiceAsync(int chatId, string title, string description, string payload, string providerToken, string startParameter, string currency, IEnumerable<LabeledPrice> prices, string providerData = null, string photoUrl = null, int photoSize = 0, int photoWidth = 0, int photoHeight = 0, bool needName = false, bool needPhoneNumber = false, bool needEmail = false, bool needShippingAddress = false, bool isFlexible = false, bool disableNotification = false, int replyToMessageId = 0, InlineKeyboardMarkup replyMarkup = null, CancellationToken cancellationToken = default)
-        {
-            await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
-
-            return await BaseClient.SendInvoiceAsync(chatId, title, description, payload, providerToken, startParameter, currency, prices, providerData, photoUrl, photoSize, photoWidth, photoHeight, needName, needPhoneNumber, needEmail, needShippingAddress, isFlexible, disableNotification, replyToMessageId, replyMarkup, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<Message> SendLocationAsync(ChatId chatId, float latitude, float longitude, int livePeriod = 0, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
@@ -544,11 +590,14 @@ namespace MihaZupan.TelegramBotClients
             return await BaseClient.SendPhotoAsync(chatId, photo, caption, parseMode, disableNotification, replyToMessageId, replyMarkup, cancellationToken).ConfigureAwait(false);
         }
 
-        public async Task<Message> SendPollAsync(ChatId chatId, string question, IEnumerable<string> options, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public async Task<Message> SendPollAsync(ChatId chatId, string question, IEnumerable<string> options, 
+            bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, 
+            CancellationToken cancellationToken = default, bool? isAnonymous = null, PollType? type = null, 
+            bool? allowsMultipleAnswers = null, int? correctOptionId = null, bool? isClosed = null)
         {
             await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
 
-            return await BaseClient.SendPollAsync(chatId, question, options, disableNotification, replyToMessageId, replyMarkup, cancellationToken).ConfigureAwait(false);
+            return await BaseClient.SendPollAsync(chatId, question, options, disableNotification, replyToMessageId, replyMarkup, cancellationToken, isAnonymous, type, allowsMultipleAnswers, correctOptionId, isClosed).ConfigureAwait(false);
         }
 
         public async Task<Message> SendStickerAsync(ChatId chatId, InputOnlineFile sticker, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
@@ -710,6 +759,20 @@ namespace MihaZupan.TelegramBotClients
             await RequestScheduler.YieldAsync(chatId).ConfigureAwait(false);
 
             await BaseClient.SetChatPermissionsAsync(chatId, permissions, cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task SetMyCommandsAsync(IEnumerable<BotCommand> commands, CancellationToken cancellationToken = default)
+        {
+            await RequestScheduler.YieldAsync().ConfigureAwait(false);
+
+            await BaseClient.SetMyCommandsAsync(commands, cancellationToken);
+        }
+        
+        public async Task<BotCommand[]> GetMyCommandsAsync(CancellationToken cancellationToken = default)
+        {
+            await RequestScheduler.YieldAsync().ConfigureAwait(false);
+
+            return await BaseClient.GetMyCommandsAsync(cancellationToken);        
         }
 
         #endregion GENERATED
