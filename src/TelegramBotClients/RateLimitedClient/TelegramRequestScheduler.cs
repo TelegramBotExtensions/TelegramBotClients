@@ -148,18 +148,11 @@ namespace MihaZupan.TelegramBotClients.RateLimitedClient
         }
         public Task YieldAsync(long bucket = 0)
         {
-            if (bucket == 0)
-            {
-                return YieldAsyncCore(bucket, _generalTimestampIncrement);
-            }
-            else if (bucket > 0)
-            {
-                return YieldAsyncCore(bucket, _privateTimestampIncrement);
-            }
-            else
-            {
-                return YieldAsyncCore(bucket, _groupTimestampIncrement);
-            }
+            long timestampIncrement = bucket == 0 ? _generalTimestampIncrement
+                : bucket > 0 ? _privateTimestampIncrement
+                : _groupTimestampIncrement;
+
+            return YieldAsyncCore(bucket, timestampIncrement);
         }
 
         public void Stop()
