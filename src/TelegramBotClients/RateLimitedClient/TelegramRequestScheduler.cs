@@ -58,7 +58,7 @@ namespace MihaZupan.TelegramBotClients.RateLimitedClient
 
         private long Timestamp() => DateTime.UtcNow.Ticks;
 
-        private void OnInterval(object _)
+        private void OnInterval()
         {
             long timestamp = Timestamp();
 
@@ -111,7 +111,7 @@ namespace MihaZupan.TelegramBotClients.RateLimitedClient
             _buckets = new Dictionary<long, Queue<TaskCompletionSource<bool>>>(16);
 
             _lastTimestamp = 0;
-            _timer = new Timer(OnInterval, null, 0, Timeout.Infinite);
+            _timer = new Timer(s => ((TelegramRequestScheduler)s).OnInterval(), this, 0, Timeout.Infinite);
         }
 
         private Task YieldAsyncCore(long bucket, long timestampIncrement)
