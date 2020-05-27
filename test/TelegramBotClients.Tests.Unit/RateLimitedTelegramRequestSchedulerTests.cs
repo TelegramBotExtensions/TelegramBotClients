@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xunit;
+using System;
 #if DEBUG
 using System.Threading;
 #endif
@@ -30,6 +31,17 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             Assert.True(schedulerSettings.SafeGeneralInterval <= schedulerSettings.SafePrivateChatInterval);
             Assert.True(schedulerSettings.SafeGeneralInterval <= schedulerSettings.SafeGroupChatInterval);
             Assert.True(schedulerSettings.SafePrivateChatInterval <= schedulerSettings.SafeGroupChatInterval);
+        }
+
+        [Fact]
+        public void ValidatesSchedulerSettings()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(-1, 1, 2));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(0, 1, 2));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(1, -1, 2));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(1, 1, -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(10, 5, 20));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(10, 20, 5));
         }
 
         [Fact]
