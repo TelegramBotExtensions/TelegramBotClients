@@ -57,7 +57,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             {
                 int ii = i;
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync(ii);
+                    await _scheduler.YieldAsync(ii, default);
                 });
             }
 
@@ -93,7 +93,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             for (int i = 0; i < testCount; i++)
             {
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync(TestPrivateChatId);
+                    await _scheduler.YieldAsync(TestPrivateChatId, default);
                 });
             }
 
@@ -130,7 +130,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             {
                 int ii = i;
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync(TestPrivateChatId + ii % 2);
+                    await _scheduler.YieldAsync(TestPrivateChatId + ii % 2, default);
                 });
             }
 
@@ -166,7 +166,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             for (int i = 0; i < testCount; i++)
             {
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync(TestGroupChatId);
+                    await _scheduler.YieldAsync(TestGroupChatId, default);
                 });
             }
 
@@ -203,7 +203,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             {
                 int ii = i;
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync(TestGroupChatId + ii % 2);
+                    await _scheduler.YieldAsync(TestGroupChatId + ii % 2, default);
                 });
             }
 
@@ -240,7 +240,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             {
                 int ii = i;
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync("@tgbots_dotnet");
+                    await _scheduler.YieldAsync("@tgbots_dotnet", default);
                 });
             }
 

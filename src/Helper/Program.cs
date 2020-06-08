@@ -56,7 +56,7 @@ namespace MakeRequestAsyncModifier
 
                 string newBlock = "public async Task" + (hasType ? match.Groups[1].Value : "") + " " + name + "(" + parameters + ")\n";
                 newBlock += indent + "{\n";
-                newBlock += indent2 + "await RequestScheduler.YieldAsync(" + bucket + ").ConfigureAwait(false);\n";
+                newBlock += indent2 + "await RequestScheduler.YieldAsync(" + bucket + (bucket.Length != 0 ? ", " : "") + "cancellationToken).ConfigureAwait(false);\n";
                 newBlock += "\n";
                 newBlock += indent2 + (hasType ? "return " : "") + "await BaseClient." + name + "(" + callingParams + ").ConfigureAwait(false);\n";
                 newBlock += indent + "}";
