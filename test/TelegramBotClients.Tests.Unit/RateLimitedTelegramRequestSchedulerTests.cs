@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xunit;
+using System;
 #if DEBUG
 using System.Threading;
 #endif
@@ -33,6 +34,17 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
         }
 
         [Fact]
+        public void ValidatesSchedulerSettings()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(-1, 1, 2));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(0, 1, 2));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(1, -1, 2));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(1, 1, -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(10, 5, 20));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SchedulerSettings(10, 20, 5));
+        }
+
+        [Fact]
         public void MaintainsAverageTiming()
         {
             Stopwatch s = Stopwatch.StartNew();
@@ -45,7 +57,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             {
                 int ii = i;
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync(ii);
+                    await _scheduler.YieldAsync(ii, default);
                 });
             }
 
@@ -81,7 +93,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             for (int i = 0; i < testCount; i++)
             {
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync(TestPrivateChatId);
+                    await _scheduler.YieldAsync(TestPrivateChatId, default);
                 });
             }
 
@@ -118,7 +130,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             {
                 int ii = i;
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync(TestPrivateChatId + ii % 2);
+                    await _scheduler.YieldAsync(TestPrivateChatId + ii % 2, default);
                 });
             }
 
@@ -154,7 +166,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             for (int i = 0; i < testCount; i++)
             {
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync(TestGroupChatId);
+                    await _scheduler.YieldAsync(TestGroupChatId, default);
                 });
             }
 
@@ -191,7 +203,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             {
                 int ii = i;
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync(TestGroupChatId + ii % 2);
+                    await _scheduler.YieldAsync(TestGroupChatId + ii % 2, default);
                 });
             }
 
@@ -228,7 +240,7 @@ namespace MihaZupan.TelegramBotClients.Tests.Unit
             {
                 int ii = i;
                 tasks[i] = Task.Run(async () => {
-                    await _scheduler.YieldAsync("@tgbots_dotnet");
+                    await _scheduler.YieldAsync("@tgbots_dotnet", default);
                 });
             }
 
